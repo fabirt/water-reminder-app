@@ -25,6 +25,13 @@ class MainActivity : FlutterActivity(), MethodChannel.MethodCallHandler {
         createAlarmIfNotRunning()
     }
 
+    override fun onResume() {
+        super.onResume()
+        lifecycleScope.launch {
+            dataStoreProvider.verifyDailyReset()
+        }
+    }
+
     override fun configureFlutterEngine(@NonNull flutterEngine: FlutterEngine) {
         GeneratedPluginRegistrant.registerWith(flutterEngine)
         callbackChannel = MethodChannel(flutterEngine.dartExecutor.binaryMessenger, K.METHOD_CHANNEL_NAME).apply {
@@ -58,10 +65,6 @@ class MainActivity : FlutterActivity(), MethodChannel.MethodCallHandler {
 
     private fun subscribeToDataStore() {
         lifecycleScope.launch {
-            launch {
-                dataStoreProvider.verifyDailyReset()
-            }
-
             launch {
                 dataStoreProvider.waterMillilitersFlow.collect { milliliters ->
                     callbackChannel.invokeMethod(K.METHOD_WATER_CHANGED, milliliters)
