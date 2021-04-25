@@ -10,5 +10,5 @@ Uses a native activity which is displayed when an alarm notification is triggere
 - AlarmManager: Schedule repeating alarms display notifications (also full screen notification on lock screen).
 
 ## Screenshots
-| ![Water summary](screenshots/pool.png) | ![Progress](screenshots/progress.png) | ![Settings](screenshots/settings.png) |
-|----------|:-------------:|:-------------:|
+| ![Water summary](screenshots/pool.png) | ![Progress](screenshots/progress.png) | ![Settings](screenshots/settings.png) | ![Alarm](screenshots/alarm.png) |
+|----------|:-------------:|:-------------:|:-------------:|
