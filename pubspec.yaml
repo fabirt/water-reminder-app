@@ -1,0 +1,32 @@
+name: waterreminder
+description: Water reminder App.
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=2.12.0 <3.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.2
+  animations: ^2.0.0
+  flutter_bloc: ^7.0.0
+  rxdart: ^0.26.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+
+  uses-material-design: true
+
+  assets:
+    - assets/
+  
+  fonts:
+    - family:  AppSymbols
+      fonts:
+       - asset: fonts/AppSymbols.ttf
+
