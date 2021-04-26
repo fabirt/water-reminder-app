@@ -13,7 +13,7 @@
         android:text="Hey!\nIt's time to drink water!"
         android:textColor="#382469"
         android:textSize="24sp"
-        android:textStyle="bold"
+        android:fontFamily="@font/comfortaa_bold"
         app:layout_constraintBottom_toTopOf="@+id/view_water"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

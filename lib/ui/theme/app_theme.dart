@@ -11,15 +11,16 @@ class AppTheme {
       selectedItemColor: Colors.white,
       unselectedItemColor: Colors.black,
     ),
+    fontFamily: "Comfortaa",
     textTheme: TextTheme(
       headline1: TextStyle(
         color: Color(0xFF382469),
-        fontWeight: FontWeight.w700,
+        fontWeight: FontWeight.bold,
         fontSize: 60.0,
       ),
       headline4: TextStyle(
         color: Color(0xFF382469),
-        fontWeight: FontWeight.w700,
+        fontWeight: FontWeight.bold,
         fontSize: 24.0,
       ),
       bodyText1: TextStyle(
