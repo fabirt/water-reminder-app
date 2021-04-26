@@ -2,6 +2,8 @@ package com.fabirt.waterreminder
 
 object K {
 
+    const val RECOMMENDED_DAILY_WATER_MILLILITERS = 2000
+
     const val ALARM_CHANNEL_ID = "ALARM_CHANNEL_ID"
 
     const val ALARM_CHANNEL_NAME = "Daily reminders"

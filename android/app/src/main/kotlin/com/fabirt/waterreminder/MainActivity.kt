@@ -44,14 +44,14 @@ class MainActivity : FlutterActivity(), MethodChannel.MethodCallHandler {
             K.METHOD_DRINK_WATER -> {
                 val milliliters = call.arguments as Int
                 lifecycleScope.launch {
-                    dataStoreProvider.drinkWater(milliliters)
+                    dataStoreProvider.setWaterMilliliters(milliliters)
                 }
                 result.success(null)
             }
             K.METHOD_CHANGE_NOTIFICATION_ENABLED -> {
                 lifecycleScope.launch {
                     val enabled = call.arguments as Boolean
-                    dataStoreProvider.changeNotificationEnabled(enabled)
+                    dataStoreProvider.setNotificationEnabled(enabled)
                 }
                 result.success(null)
             }
@@ -83,7 +83,7 @@ class MainActivity : FlutterActivity(), MethodChannel.MethodCallHandler {
         lifecycleScope.launch {
             if (!dataStoreProvider.isAlarmRunning()) {
                 setRepeatingWaterAlarm()
-                dataStoreProvider.updateAlarmRunning(true)
+                dataStoreProvider.setAlarmRunning(true)
             }
         }
     }

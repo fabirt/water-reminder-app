@@ -41,7 +41,7 @@ class DataStoreProvider(private val context: Context) {
         }
     }
 
-    suspend fun drinkWater(milliliters: Int) {
+    suspend fun setWaterMilliliters(milliliters: Int) {
         context.dataStore.edit { settings ->
             val currentMilliliters = settings[waterMilliliters] ?: 0
             settings[waterMilliliters] = currentMilliliters + milliliters
@@ -49,7 +49,7 @@ class DataStoreProvider(private val context: Context) {
         }
     }
 
-    suspend fun changeNotificationEnabled(enabled: Boolean) {
+    suspend fun setNotificationEnabled(enabled: Boolean) {
         context.dataStore.edit { settings ->
             settings[notificationEnabled] = enabled
         }
@@ -61,7 +61,7 @@ class DataStoreProvider(private val context: Context) {
         }.first()
     }
 
-    suspend fun updateAlarmRunning(isRunning: Boolean) {
+    suspend fun setAlarmRunning(isRunning: Boolean) {
         context.dataStore.edit { settings ->
             settings[alarmRunning] = isRunning
         }

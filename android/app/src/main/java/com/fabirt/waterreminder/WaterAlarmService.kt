@@ -19,7 +19,7 @@ class WaterAlarmService : Service() {
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         when (intent?.action) {
             ACTION_START_ALARM_SERVICE -> {
-                startForeground(ALARM_NOTIFICATION_ID, buildNotification(this))
+                startForeground(ALARM_NOTIFICATION_ID, buildNotification(this, ""))
                 stopForeground(false)
             }
             ACTION_STOP_ALARM_SERVICE -> {
@@ -44,14 +44,14 @@ class WaterAlarmService : Service() {
         const val ACTION_STOP_ALARM_SERVICE = "com.fabirt.waterreminder.ACTION_STOP_ALARM_SERVICE"
         const val ALARM_NOTIFICATION_ID = 1
 
-        fun displayFullScreenNotification(context: Context) {
+        fun displayFullScreenNotification(context: Context, contentText: String) {
             NotificationManagerCompat.from(context).notify(
                     ALARM_NOTIFICATION_ID,
-                    buildNotification(context)
+                    buildNotification(context, contentText)
             )
         }
 
-        fun buildNotification(context: Context): Notification {
+        fun buildNotification(context: Context, contentText: String): Notification {
             val contentIntent = Intent(context, MainActivity::class.java)
             val contentPendingIntent = PendingIntent.getActivity(context, 0, contentIntent, PendingIntent.FLAG_UPDATE_CURRENT)
 
@@ -70,9 +70,10 @@ class WaterAlarmService : Service() {
 
             return NotificationCompat.Builder(context, K.ALARM_CHANNEL_ID)
                     .setSmallIcon(R.drawable.ic_water_glass)
-                    .setContentTitle("It is water time!")
-                    .setContentText("Remember to drink 2L of water every day 💧🥛")
+                    .setContentTitle("It is water time! \uD83D\uDCA7\uD83E\uDD5B")
+                    .setContentText(contentText)
                     .setColor(context.getColor(R.color.color_water))
+                    .setStyle(NotificationCompat.BigTextStyle().bigText(contentText))
                     .setPriority(NotificationCompat.PRIORITY_MAX)
                     .setCategory(NotificationCompat.CATEGORY_ALARM)
                     .setContentIntent(contentPendingIntent)
