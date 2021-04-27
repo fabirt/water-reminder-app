@@ -77,7 +77,12 @@ class SettingsPage extends StatelessWidget {
   }
 
   Future<void> clearDataStore(BuildContext context) async {
-    final confirmed = await showConfirmationDialog(context);
+    final confirmed = await showConfirmationDialog(
+      context,
+      title: "Hard Reset",
+      content:
+          "You are about to reset all the application data. This action cannot be undone.",
+    );
     if (confirmed) {
       context.read<WaterBloc>().clearDataStore();
     }
