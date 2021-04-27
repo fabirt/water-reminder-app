@@ -3,16 +3,14 @@ import 'dart:async';
 import 'package:rxdart/rxdart.dart';
 import 'package:waterreminder/constant/constant.dart';
 import 'package:waterreminder/data/platform/platform_messenger.dart';
+import 'package:waterreminder/domain/model/water_settings.dart';
 
 class WaterRepository {
   WaterRepository() {
     PlatformMessenger.setMethodCallHandler((call) {
       switch (call.method) {
-        case Constant.methodWaterChanged:
-          _waterMilliliters.add(call.arguments);
-          break;
-        case Constant.methodNotificationEnabledChanged:
-          _notificationEnabled.add(call.arguments);
+        case Constant.methodWaterSettingsChanged:
+          _waterSettings.add(WaterSettings.fromMap(call.arguments));
           break;
         default:
           break;
@@ -21,17 +19,15 @@ class WaterRepository {
     });
   }
 
-  final _waterMilliliters = BehaviorSubject<int>();
-  final _notificationEnabled = BehaviorSubject<bool>();
+  final _waterSettings = BehaviorSubject<WaterSettings>();
 
-  Stream<int> get waterMilliliters => _waterMilliliters.stream;
-  Stream<bool> get notificationEnabled => _notificationEnabled.stream;
+  Stream<WaterSettings> get waterSettings => _waterSettings.stream;
 
   void drinkWater(int milliliters) {
     PlatformMessenger.invokeMethod(Constant.methodDrinkWater, milliliters);
   }
 
-  void changeNotificationEnabled(bool enabled) {
+  void changeAlarmEnabled(bool enabled) {
     PlatformMessenger.invokeMethod(
         Constant.methodChangeNotificationEnabled, enabled);
   }
@@ -40,8 +36,11 @@ class WaterRepository {
     PlatformMessenger.invokeMethod(Constant.methodSubscribeToDataStore);
   }
 
+  void clearDataStore() {
+    PlatformMessenger.invokeMethod(Constant.methodClearDataStore);
+  }
+
   void close() {
-    _waterMilliliters.close();
-    _notificationEnabled.close();
+    _waterSettings.close();
   }
 }

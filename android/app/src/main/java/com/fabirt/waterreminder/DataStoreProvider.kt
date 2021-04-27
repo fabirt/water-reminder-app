@@ -17,12 +17,12 @@ class DataStoreProvider(private val context: Context) {
     private val notificationEnabled = booleanPreferencesKey("notification_enabled")
     private val alarmRunning = booleanPreferencesKey("alarm_running")
 
-    val waterMillilitersFlow: Flow<Int> = context.dataStore.data.map { preferences ->
-        preferences[waterMilliliters] ?: 0
-    }
-
-    val notificationEnabledFlow: Flow<Boolean> = context.dataStore.data.map { preferences ->
-        preferences[notificationEnabled] ?: true
+    val waterSettingsFlow: Flow<WaterSettings> = context.dataStore.data.map { preferences ->
+        WaterSettings(
+                currentMilliliters = preferences[waterMilliliters] ?: 0,
+                recommendedMilliliters = K.RECOMMENDED_DAILY_WATER_MILLILITERS,
+                alarmEnabled = preferences[notificationEnabled] ?: true
+        )
     }
 
     suspend fun verifyDailyReset() {
@@ -64,6 +64,12 @@ class DataStoreProvider(private val context: Context) {
     suspend fun setAlarmRunning(isRunning: Boolean) {
         context.dataStore.edit { settings ->
             settings[alarmRunning] = isRunning
+        }
+    }
+
+    suspend fun clearPreferences() {
+        context.dataStore.edit { settings ->
+            settings.clear()
         }
     }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:waterreminder/util/num_extension.dart';
 
 class RemainingHydrationText extends StatelessWidget {
   final int quantity;
@@ -17,7 +18,7 @@ class RemainingHydrationText extends StatelessWidget {
           child: child,
         );
       },
-      child: Text("Remaining ${quantity.toInt()} ml"),
+      child: Text("Remaining ${quantity.asMilliliters()}"),
     );
   }
 }

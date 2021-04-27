@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:waterreminder/bloc/notification_bloc.dart';
 import 'package:waterreminder/bloc/water_bloc.dart';
 import 'package:waterreminder/domain/repository/water_repository.dart';
 import 'package:waterreminder/ui/home/home_page.dart';
@@ -34,10 +33,6 @@ class _AppState extends State<App> {
       providers: [
         BlocProvider(
           create: (context) => WaterBloc(_repository),
-          lazy: false,
-        ),
-        BlocProvider(
-          create: (context) => NotificationBloc(_repository),
           lazy: false,
         ),
       ],

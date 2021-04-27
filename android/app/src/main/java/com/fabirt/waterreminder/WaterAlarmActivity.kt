@@ -1,23 +1,32 @@
 package com.fabirt.waterreminder
 
+import android.animation.ObjectAnimator
+import android.animation.PropertyValuesHolder
 import android.app.KeyguardManager
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.ServiceConnection
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.IBinder
 import android.view.View
 import android.view.WindowManager
+import android.view.animation.BounceInterpolator
+import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
 class WaterAlarmActivity : AppCompatActivity() {
+
     private var mService: WaterAlarmService? = null
+    private lateinit var dataStoreProvider: DataStoreProvider
+    private lateinit var cancelButton: View
+    private lateinit var contentText: TextView
 
     private val connection = object : ServiceConnection {
         override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
@@ -34,12 +43,24 @@ class WaterAlarmActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_water_alarm)
         configureWindow()
+        dataStoreProvider = DataStoreProvider(this)
 
-        findViewById<View>(R.id.btn_cancel).setOnClickListener {
+        cancelButton = findViewById(R.id.btn_cancel)
+        contentText = findViewById(R.id.tv_content)
+
+        startButtonAnimation()
+        cancelButton.setOnClickListener {
             NotificationManagerCompat.from(this).cancel(WaterAlarmService.ALARM_NOTIFICATION_ID)
             finish()
         }
+
         startDestroyTimer()
+
+        lifecycleScope.launch {
+            val settings = dataStoreProvider.waterSettingsFlow.first()
+            val remaining = settings.recommendedMilliliters - settings.currentMilliliters
+            contentText.text = "Remaining $remaining ml"
+        }
     }
 
     override fun onStart() {
@@ -81,5 +102,20 @@ class WaterAlarmActivity : AppCompatActivity() {
             delay(35000)
             finish()
         }
+    }
+
+    private fun startButtonAnimation() {
+        val animator = ObjectAnimator.ofPropertyValuesHolder(
+                cancelButton,
+                PropertyValuesHolder.ofFloat("scaleX", 1.14f),
+                PropertyValuesHolder.ofFloat("scaleY", 1.14f)
+        ).apply {
+            duration = 400
+            repeatCount = ObjectAnimator.INFINITE
+            repeatMode = ObjectAnimator.RESTART
+            interpolator = BounceInterpolator()
+        }
+
+        animator.start()
     }
 }

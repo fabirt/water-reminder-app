@@ -59,22 +59,18 @@ class MainActivity : FlutterActivity(), MethodChannel.MethodCallHandler {
                 subscribeToDataStore()
                 result.success(null)
             }
+            K.METHOD_CLEAR_DATA_STORE -> {
+                clearDataStore()
+                result.success(null)
+            }
             else -> result.notImplemented()
         }
     }
 
     private fun subscribeToDataStore() {
         lifecycleScope.launch {
-            launch {
-                dataStoreProvider.waterMillilitersFlow.collect { milliliters ->
-                    callbackChannel.invokeMethod(K.METHOD_WATER_CHANGED, milliliters)
-                }
-            }
-
-            launch {
-                dataStoreProvider.notificationEnabledFlow.collect { enabled ->
-                    callbackChannel.invokeMethod(K.METHOD_NOTIFICATION_ENABLED_CHANGED, enabled)
-                }
+            dataStoreProvider.waterSettingsFlow.collect { settings ->
+                callbackChannel.invokeMethod(K.METHOD_WATER_SETTINGS_CHANGED, settings.asMap())
             }
         }
     }
@@ -85,6 +81,14 @@ class MainActivity : FlutterActivity(), MethodChannel.MethodCallHandler {
                 setRepeatingWaterAlarm()
                 dataStoreProvider.setAlarmRunning(true)
             }
+        }
+    }
+
+    private fun clearDataStore() {
+        lifecycleScope.launch {
+            dataStoreProvider.clearPreferences()
+            setRepeatingWaterAlarm()
+            dataStoreProvider.setAlarmRunning(true)
         }
     }
 }

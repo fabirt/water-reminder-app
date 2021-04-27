@@ -7,17 +7,31 @@
     tools:context=".WaterAlarmActivity">
 
     <TextView
+        android:id="@+id/tv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/comfortaa_bold"
         android:gravity="center"
         android:text="Hey!\nIt's time to drink water!"
         android:textColor="#382469"
         android:textSize="24sp"
-        android:fontFamily="@font/comfortaa_bold"
         app:layout_constraintBottom_toTopOf="@+id/view_water"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/comfortaa_regular"
+        android:gravity="center"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_title"
+        tools:text="Remaining 2000 ml" />
 
     <com.fabirt.waterreminder.WaterView
         android:id="@+id/view_water"
@@ -32,9 +46,9 @@
         android:id="@+id/btn_cancel"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        app:cardCornerRadius="40dp"
         android:background="?selectableItemBackgroundBorderless"
         app:cardBackgroundColor="@android:color/black"
+        app:cardCornerRadius="40dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -44,9 +58,9 @@
             android:layout_width="43dp"
             android:layout_height="43dp"
             android:layout_gravity="center"
+            android:contentDescription="@string/cancel"
             android:src="@drawable/ic_round_close_24"
-            app:tint="@android:color/white"
-            android:contentDescription="@string/cancel" />
+            app:tint="@android:color/white" />
 
     </com.google.android.material.card.MaterialCardView>
 

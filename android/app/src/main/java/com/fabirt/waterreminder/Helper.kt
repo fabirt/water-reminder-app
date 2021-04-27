@@ -39,7 +39,7 @@ fun Context.setRepeatingWaterAlarm() {
     val pendingIntent = PendingIntent.getBroadcast(this, requestCode, intent, PendingIntent.FLAG_UPDATE_CURRENT)
 
     val alarmManager = ContextCompat.getSystemService(this, AlarmManager::class.java)
-    val intervalMillis = 10_800_000L
+    val intervalMillis = 7_200_000L
 
     alarmManager?.setRepeating(
             AlarmManager.RTC_WAKEUP,

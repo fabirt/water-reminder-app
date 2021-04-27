@@ -16,15 +16,15 @@ class WaterAlarmReceiver : BroadcastReceiver() {
 
             val dataStoreProvider = DataStoreProvider(context)
             GlobalScope.launch {
-                if (!dataStoreProvider.notificationEnabledFlow.first()) return@launch
+                val settings = dataStoreProvider.waterSettingsFlow.first()
+
+                if (!settings.alarmEnabled) return@launch
 
                 dataStoreProvider.verifyDailyReset()
 
-                val currentMilliliters = dataStoreProvider.waterMillilitersFlow.first()
+                if (settings.currentMilliliters >= settings.recommendedMilliliters) return@launch
 
-                if (currentMilliliters >= K.RECOMMENDED_DAILY_WATER_MILLILITERS) return@launch
-
-                val remainingMilliliters = K.RECOMMENDED_DAILY_WATER_MILLILITERS - currentMilliliters
+                val remainingMilliliters = settings.recommendedMilliliters - settings.currentMilliliters
 
                 val contentText = "You still have to drink $remainingMilliliters ml of water more today. Remember to stay hydrated."
 

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:waterreminder/util/num_extension.dart';
+
 class HydrationQuantityText extends StatelessWidget {
   final int quantity;
 
@@ -15,7 +17,7 @@ class HydrationQuantityText extends StatelessWidget {
         tween: Tween(begin: 0.0, end: quantity.toDouble()),
         builder: (context, value, child) {
           return Text(
-            "${value.toInt()} ml",
+            value.asMilliliters(),
             textAlign: TextAlign.center,
             style: Theme.of(context).textTheme.headline1,
           );

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:waterreminder/bloc/water_bloc.dart';
 import 'package:waterreminder/ui/hydration_progress/progress_painter.dart';
+import 'package:waterreminder/util/num_extension.dart';
 
 class ProgressView extends StatelessWidget {
   @override
@@ -14,10 +15,8 @@ class ProgressView extends StatelessWidget {
     final gradient = SweepGradient(
       transform: GradientRotation(pi * 3 / 2),
       colors: [
-        theme.indicatorColor,
-        theme.accentColor,
-        theme.accentColor,
-        theme.indicatorColor,
+        theme.accentColor.withOpacity(0.5),
+        theme.accentColor.withOpacity(0.5),
       ],
     );
 
@@ -62,12 +61,12 @@ class _DataColumn extends StatelessWidget {
         ),
         SizedBox(height: 4),
         Text(
-          "${bloc.currentWater} ml",
+          bloc.state.currentMilliliters.asMilliliters(),
           style: theme.textTheme.bodyText1,
         ),
         SizedBox(height: 8),
         Text(
-          "${bloc.remainigWater} ml",
+          bloc.remainigWater.asMilliliters(),
           style: theme.textTheme.caption,
         ),
       ],
