@@ -63,6 +63,13 @@ class MainActivity : FlutterActivity(), MethodChannel.MethodCallHandler {
                 clearDataStore()
                 result.success(null)
             }
+            K.METHOD_SET_RECOMMENDED_MILLILITERS -> {
+                val milliliters = call.arguments as Int
+                lifecycleScope.launch {
+                    dataStoreProvider.setRecommendedMilliliters(milliliters)
+                }
+                result.success(null)
+            }
             else -> result.notImplemented()
         }
     }

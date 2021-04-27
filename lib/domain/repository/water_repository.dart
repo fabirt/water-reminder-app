@@ -36,6 +36,11 @@ class WaterRepository {
     PlatformMessenger.invokeMethod(Constant.methodSubscribeToDataStore);
   }
 
+  void setRecommendedMilliliters(int milliliters) {
+    PlatformMessenger.invokeMethod(
+        Constant.methodSetRecommendedMilliliters, milliliters);
+  }
+
   void clearDataStore() {
     PlatformMessenger.invokeMethod(Constant.methodClearDataStore);
   }

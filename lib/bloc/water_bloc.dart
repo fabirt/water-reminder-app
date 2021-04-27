@@ -31,6 +31,10 @@ class WaterBloc extends Cubit<WaterSettings> {
     _repository.changeAlarmEnabled(enabled);
   }
 
+  void setRecommendedMilliliters(int milliliters) {
+    _repository.setRecommendedMilliliters(milliliters);
+  }
+
   void clearDataStore() {
     _repository.clearDataStore();
   }

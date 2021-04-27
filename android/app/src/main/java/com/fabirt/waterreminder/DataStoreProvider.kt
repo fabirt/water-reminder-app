@@ -13,6 +13,7 @@ import java.time.ZoneId
 class DataStoreProvider(private val context: Context) {
 
     private val waterMilliliters = intPreferencesKey("water_milliliters")
+    private val recommendedMilliliters = intPreferencesKey("recommended_milliliters")
     private val lastUpdate = longPreferencesKey("last_update")
     private val notificationEnabled = booleanPreferencesKey("notification_enabled")
     private val alarmRunning = booleanPreferencesKey("alarm_running")
@@ -20,7 +21,7 @@ class DataStoreProvider(private val context: Context) {
     val waterSettingsFlow: Flow<WaterSettings> = context.dataStore.data.map { preferences ->
         WaterSettings(
                 currentMilliliters = preferences[waterMilliliters] ?: 0,
-                recommendedMilliliters = K.RECOMMENDED_DAILY_WATER_MILLILITERS,
+                recommendedMilliliters = preferences[recommendedMilliliters] ?: K.RECOMMENDED_DAILY_WATER_MILLILITERS,
                 alarmEnabled = preferences[notificationEnabled] ?: true
         )
     }
@@ -46,6 +47,12 @@ class DataStoreProvider(private val context: Context) {
             val currentMilliliters = settings[waterMilliliters] ?: 0
             settings[waterMilliliters] = currentMilliliters + milliliters
             settings[lastUpdate] = System.currentTimeMillis()
+        }
+    }
+
+    suspend fun setRecommendedMilliliters(milliliters: Int) {
+        context.dataStore.edit { settings ->
+            settings[recommendedMilliliters] = milliliters
         }
     }
 
