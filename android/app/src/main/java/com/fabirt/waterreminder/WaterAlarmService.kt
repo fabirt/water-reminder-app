@@ -79,7 +79,6 @@ class WaterAlarmService : Service() {
                     .setContentIntent(contentPendingIntent)
                     .setFullScreenIntent(fullScreenPendingIntent, true)
                     .setDeleteIntent(deletePendingIntent)
-                    .setOngoing(false)
                     .setAutoCancel(true)
                     .setSound(soundUri)
                     .build()

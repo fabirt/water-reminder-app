@@ -36,6 +36,7 @@ class WaterAlarmActivity : AppCompatActivity() {
         configureWindow()
 
         findViewById<View>(R.id.btn_cancel).setOnClickListener {
+            NotificationManagerCompat.from(this).cancel(WaterAlarmService.ALARM_NOTIFICATION_ID)
             finish()
         }
         startDestroyTimer()
@@ -72,7 +73,6 @@ class WaterAlarmActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         mService?.stopAlarmService()
-        NotificationManagerCompat.from(this).cancel(WaterAlarmService.ALARM_NOTIFICATION_ID)
         super.onDestroy()
     }
 
