@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:waterreminder/ui/widgets/primary_button.dart';
+import 'package:waterreminder/ui/widgets/secondary_button.dart';
 
 class ConfirmationDialog extends StatelessWidget {
   final String title;
@@ -16,7 +18,6 @@ class ConfirmationDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     return AlertDialog(
       title: Text(
         title,
@@ -33,32 +34,9 @@ class ConfirmationDialog extends StatelessWidget {
             textAlign: TextAlign.center,
           ),
           SizedBox(height: 24),
-          ElevatedButton(
-            onPressed: onConfirm,
-            style: ButtonStyle(
-              elevation: MaterialStateProperty.all(0),
-              backgroundColor: MaterialStateProperty.all(theme.primaryColor),
-              padding:
-                  MaterialStateProperty.all(EdgeInsets.symmetric(vertical: 16)),
-              shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10))),
-            ),
-            child: Text("Confirm"),
-          ),
+          PrimaryButton(onPressed: onConfirm, title: "Confirm"),
           SizedBox(height: 10),
-          TextButton(
-            onPressed: onCancel,
-            style: ButtonStyle(
-              foregroundColor: MaterialStateProperty.all(theme.primaryColor),
-              overlayColor: MaterialStateProperty.all(
-                  theme.primaryColor.withOpacity(0.06)),
-              padding:
-                  MaterialStateProperty.all(EdgeInsets.symmetric(vertical: 16)),
-              shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10))),
-            ),
-            child: Text("Cancel"),
-          ),
+          SecondaryButton(onPressed: onCancel, title: "Cancel"),
         ],
       ),
     );

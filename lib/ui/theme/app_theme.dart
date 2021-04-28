@@ -40,5 +40,10 @@ class AppTheme {
         fontSize: 14.0,
       ),
     ),
+    textSelectionTheme: TextSelectionThemeData(
+      cursorColor: Color(0xFF382469),
+      selectionHandleColor: Color(0xFF382469),
+      selectionColor: Color(0x1F382469),
+    ),
   );
 }

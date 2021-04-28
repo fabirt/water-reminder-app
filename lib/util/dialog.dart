@@ -1,6 +1,8 @@
-import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
+import 'package:animations/animations.dart';
+
 import 'package:waterreminder/ui/widgets/confirmation_dialog.dart';
+import 'package:waterreminder/ui/widgets/consumption_dialog.dart';
 
 Future<bool> showConfirmationDialog(
   BuildContext context, {
@@ -21,4 +23,11 @@ Future<bool> showConfirmationDialog(
       false;
 
   return confirmed;
+}
+
+Future<void> showConsumptionDialog(BuildContext context) {
+  return showModal(
+    context: context,
+    builder: (context) => ConsumptionDialog(),
+  );
 }

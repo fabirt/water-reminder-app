@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:waterreminder/constant/constant.dart';
 
 class PlatformMessenger {
+  PlatformMessenger._();
   static const _platformCahnnel = MethodChannel(Constant.platformChannelName);
 
   static void invokeMethod(String method, [dynamic arguments]) {
