@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:waterreminder/bloc/water_bloc.dart';
 
+import 'package:waterreminder/bloc/water_bloc.dart';
 import 'package:waterreminder/ui/hydration_pool/hydration_quantity_text.dart';
 import 'package:waterreminder/ui/hydration_pool/person_view.dart';
 import 'package:waterreminder/ui/hydration_pool/remaining_hydration_text.dart';
@@ -14,7 +14,6 @@ class HydrationPoolPage extends StatefulWidget {
 
 class _HydrationPoolPageState extends State<HydrationPoolPage>
     with SingleTickerProviderStateMixin {
-  bool _ready = false;
   late AnimationController _controller;
 
   @override
@@ -26,12 +25,6 @@ class _HydrationPoolPageState extends State<HydrationPoolPage>
     );
 
     _controller.repeat();
-
-    Future.delayed(Duration(milliseconds: 250), () {
-      setState(() {
-        _ready = true;
-      });
-    });
   }
 
   @override
@@ -54,7 +47,7 @@ class _HydrationPoolPageState extends State<HydrationPoolPage>
           alignment: Alignment.bottomCenter,
           child: WaterView(
             animation: _controller,
-            progress: _ready ? bloc.progress : 0.0,
+            progress: bloc.progress,
           ),
         ),
         Align(
